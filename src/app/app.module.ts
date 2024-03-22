@@ -10,6 +10,7 @@ import { MoviesService } from './movies/movies.service';
 import { httpInterceptorProviders } from '@/interceptors';
 import { MovieCardComponent } from './movies/movie-card/movie-card.component';
 import { MovieCatalogueComponent } from './movies/movie-catalogue/movie-catalogue.component';
+import { MovieHoverDetailsComponent } from './movies/movie-hover-details/movie-hover-details.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { MovieCatalogueComponent } from './movies/movie-catalogue/movie-catalogu
     NavigationBarComponent,
     MovieCatalogueComponent,
     MovieCardComponent,
+    MovieHoverDetailsComponent,
     MagnifyingGlassSvgComponent,
   ],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule],

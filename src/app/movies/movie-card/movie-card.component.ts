@@ -7,6 +7,7 @@ import { Movie } from '../movie.model';
 })
 export class MovieCardComponent {
   @Input() movie!: Movie;
+  isHovered = false;
 
   get imageUrl() {
     return `https://image.tmdb.org/t/p/w300${this.movie.poster_path}`;

@@ -1,5 +1,11 @@
-<div *ngIf="!!movie" class="card card-side bg-base-300 shadow-xl h-72">
-  <figure class="w-48 min-w-48">
+<div
+  *ngIf="!!movie"
+  class="card card-side bg-base-300 shadow-xl h-72"
+  (mouseenter)="isHovered = true"
+  (mouseleave)="isHovered = false"
+>
+  <figure class="w-48 min-w-48 relative">
+    <app-movie-hover-details *ngIf="isHovered" [movie]="movie" />
     <img
       [src]="imageUrl"
       [alt]="imageAlt"
