@@ -1,5 +1,6 @@
 import { Component, OnDestroy, Output } from '@angular/core';
-import { Subject } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subject, Subscription, take } from 'rxjs';
 
 const DEBOUNCE_IN_MS = 500;
 
@@ -8,7 +9,7 @@ const DEBOUNCE_IN_MS = 500;
   templateUrl: './navigation-bar.component.html',
 })
 export class NavigationBarComponent implements OnDestroy {
-  @Output() queryChange: Subject<string>;
+  private _queryParamSubscribtion$: Subscription;
 
   private _query: string = '';
   private _intervalId = 0;
@@ -19,20 +20,37 @@ export class NavigationBarComponent implements OnDestroy {
 
   set query(value: string) {
     clearTimeout(this._intervalId);
-    this._intervalId = setTimeout(() => {
-      this.queryChange.next(value);
-    }, DEBOUNCE_IN_MS);
     this._query = value;
+
+    if (this._queryParamSubscribtion$) {
+      this._queryParamSubscribtion$.unsubscribe();
+    }
+
+    this._intervalId = setTimeout(() => {
+      this.router.navigate([], {
+        queryParams: { query: value.length > 0 ? value : undefined },
+        queryParamsHandling: 'merge',
+      });
+    }, DEBOUNCE_IN_MS);
   }
 
-  constructor() {
-    this.queryChange = new Subject<string>();
+  constructor(private router: Router, private activatedRouter: ActivatedRoute) {
+    this._queryParamSubscribtion$ = Subscription.EMPTY;
+  }
+
+  ngOnInit() {
+    this.activatedRouter.queryParamMap.subscribe((paramsMap) => {
+      this._query = paramsMap.get('query') ?? '';
+    });
   }
 
   ngOnDestroy() {
-    this.queryChange.unsubscribe();
     if (this._intervalId) {
       clearTimeout(this._intervalId);
+    }
+
+    if (this._queryParamSubscribtion$) {
+      this._queryParamSubscribtion$.unsubscribe();
     }
   }
 }

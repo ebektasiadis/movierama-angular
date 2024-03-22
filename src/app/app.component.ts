@@ -5,10 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
-  query: string = '';
-
-  onQueryChange(query: string) {
-    this.query = query;
-  }
-}
+export class AppComponent {}
