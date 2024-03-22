@@ -1,1 +1,18 @@
-<p>I am a movie card</p>
+<div *ngIf="!!movie" class="card card-side bg-base-300 shadow-xl h-72">
+  <figure class="w-48 min-w-48">
+    <img
+      [src]="imageUrl"
+      [alt]="imageAlt"
+      class="h-full w-full object-cover pointer-events-none"
+    />
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title">{{ movie.title }}</h2>
+    <p class="line-clamp-4 grow-0">
+      {{ movie.overview }}
+    </p>
+    <div class="card-actions justify-end mt-auto">
+      <button class="btn btn-primary">View details</button>
+    </div>
+  </div>
+</div>
