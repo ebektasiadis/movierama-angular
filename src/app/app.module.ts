@@ -8,11 +8,15 @@ import { NavigationBarComponent } from './navigation-bar/navigation-bar.componen
 import { MagnifyingGlassSvgComponent } from './shared/svg/magnifying-glass-svg.component';
 import { MoviesService } from './movies/movies.service';
 import { httpInterceptorProviders } from '@/interceptors';
+import { MovieCardComponent } from './movies/movie-card/movie-card.component';
+import { MovieCatalogueComponent } from './movies/movie-catalogue/movie-catalogue.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationBarComponent,
+    MovieCatalogueComponent,
+    MovieCardComponent,
     MagnifyingGlassSvgComponent,
   ],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule],

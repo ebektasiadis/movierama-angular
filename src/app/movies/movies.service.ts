@@ -28,14 +28,23 @@ export class MoviesService {
     });
   }
 
+  /**
+   * TODO: catch error if movie id is not found
+   */
   getSimilarById(movieId: number) {
     return this.http.get<Movie>(`${this._baseUrl}/3/movie/${movieId}/similar`);
   }
 
+  /**
+   * TODO: catch error if movie id is not found
+   */
   getVideosById(movieId: number) {
     return this.http.get<Movie>(`${this._baseUrl}/3/movie/${movieId}/videos`);
   }
 
+  /**
+   * TODO: catch error if movie id is not found
+   */
   getReviewsById(movieId: number) {
     return this.http.get<Paginated<Review>>(
       `${this._baseUrl}/3/movie/${movieId}/reviews`
