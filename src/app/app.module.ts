@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
@@ -23,6 +24,7 @@ import { MovieHoverDetailsComponent } from './movies/movie-hover-details/movie-h
     MagnifyingGlassSvgComponent,
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     HttpClientModule,
     InfiniteScrollModule,
