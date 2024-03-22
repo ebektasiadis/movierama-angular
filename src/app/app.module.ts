@@ -13,6 +13,7 @@ import { httpInterceptorProviders } from '@/interceptors';
 import { MovieCardComponent } from './movies/movie-card/movie-card.component';
 import { MovieCatalogueComponent } from './movies/movie-catalogue/movie-catalogue.component';
 import { MovieHoverDetailsComponent } from './movies/movie-hover-details/movie-hover-details.component';
+import { MovieDetailsComponent } from './movies/movie-details/movie-details.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { MovieHoverDetailsComponent } from './movies/movie-hover-details/movie-h
     MovieCatalogueComponent,
     MovieCardComponent,
     MovieHoverDetailsComponent,
+    MovieDetailsComponent,
     MagnifyingGlassSvgComponent,
   ],
   imports: [

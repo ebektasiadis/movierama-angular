@@ -1,4 +1,4 @@
 <app-navigation-bar (queryChange)="onQueryChange($event)" />
 <main class="mt-4 container mx-auto">
-  <app-movie-catalogue [query]="query" />
+  <router-outlet></router-outlet>
 </main>
