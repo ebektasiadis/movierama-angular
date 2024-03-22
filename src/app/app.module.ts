@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,7 +22,12 @@ import { MovieHoverDetailsComponent } from './movies/movie-hover-details/movie-h
     MovieHoverDetailsComponent,
     MagnifyingGlassSvgComponent,
   ],
-  imports: [BrowserModule, HttpClientModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    InfiniteScrollModule,
+    AppRoutingModule,
+  ],
   providers: [MoviesService, httpInterceptorProviders],
   bootstrap: [AppComponent],
 })

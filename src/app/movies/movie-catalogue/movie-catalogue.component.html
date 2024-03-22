@@ -1,3 +1,8 @@
-<div id="movie-catalogue" class="grid grid-cols-3 gap-4">
+<div
+  id="movie-catalogue"
+  class="grid grid-cols-3 gap-4"
+  infiniteScroll
+  (scrolled)="onScroll()"
+>
   <app-movie-card *ngFor="let movie of movies" [movie]="movie" />
 </div>
