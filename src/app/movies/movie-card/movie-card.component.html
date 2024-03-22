@@ -5,8 +5,9 @@
   (mouseleave)="isHovered = false"
 >
   <figure class="w-48 min-w-48 relative">
-    <app-movie-hover-details *ngIf="isHovered" [movie]="movie" />
+    <app-movie-hover-details *ngIf="isHovered || !imageUrl" [movie]="movie" />
     <img
+      *ngIf="imageUrl"
       [src]="imageUrl"
       [alt]="imageAlt"
       class="h-full w-full object-cover pointer-events-none"
