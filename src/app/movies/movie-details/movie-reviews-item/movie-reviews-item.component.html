@@ -1,0 +1,16 @@
+<div *ngIf="review" class="chat chat-start">
+  <div class="chat-image avatar">
+    <div class="w-10 rounded-full">
+      <img alt="{{ review.author }} avatar" [src]="getAvatarUrl()" />
+    </div>
+  </div>
+  <div class="chat-header">
+    {{ review.author }}
+    <time [dateTime]="review.created_at" class="text-xs opacity-50">{{
+      review.created_at | date
+    }}</time>
+  </div>
+  <markdown class="chat-bubble max-w-full">
+    {{ review.content }}
+  </markdown>
+</div>

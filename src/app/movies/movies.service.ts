@@ -56,9 +56,14 @@ export class MoviesService {
   /**
    * TODO: catch error if movie id is not found
    */
-  getReviewsById(movieId: number) {
+  getReviewsById(movieId: number, page: number = 1) {
     return this.http.get<Paginated<Review>>(
-      `${this._baseUrl}/3/movie/${movieId}/reviews`
+      `${this._baseUrl}/3/movie/${movieId}/reviews`,
+      {
+        params: {
+          page,
+        },
+      }
     );
   }
 }

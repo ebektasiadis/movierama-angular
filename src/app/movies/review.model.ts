@@ -10,6 +10,6 @@ export type Review = {
 export type AuthorDetails = {
   name: string;
   username: string;
-  avatar_path: string;
+  avatar_path: string | null;
   rating: number;
 };
