@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MovieCatalogueComponent } from './movies/movie-catalogue/movie-catalogue.component';
 import { MovieDetailsComponent } from './movies/movie-details/movie-details.component';
+import { movieCatalogueResolver } from './movies/movie-catalogue/movie-catalogue.resolver';
 
 const routes: Routes = [
   {
@@ -16,6 +17,9 @@ const routes: Routes = [
   {
     path: 'movies',
     component: MovieCatalogueComponent,
+    resolve: {
+      movies: movieCatalogueResolver,
+    },
   },
   {
     path: '**',

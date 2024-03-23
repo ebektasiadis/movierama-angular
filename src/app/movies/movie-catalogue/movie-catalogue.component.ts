@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { Movie } from '../movie.model';
 import { MoviesService } from '../movies.service';
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -10,8 +10,6 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MovieCatalogueComponent implements OnInit, OnDestroy {
   private _querySubscription$: Subscription;
-  private _getPopularSubscription$: Subscription;
-  private _searchSubscription$: Subscription;
 
   movies: Movie[] = [];
   page = 1;
@@ -20,58 +18,53 @@ export class MovieCatalogueComponent implements OnInit, OnDestroy {
     private moviesService: MoviesService,
     private activatedRoute: ActivatedRoute
   ) {
-    this._getPopularSubscription$ = Subscription.EMPTY;
-    this._searchSubscription$ = Subscription.EMPTY;
     this._querySubscription$ = Subscription.EMPTY;
   }
 
   ngOnInit() {
-    this._getPopularSubscription$ = this.moviesService
-      .getPopular(this.page)
-      .subscribe((response) => {
-        this.movies = response.results;
-      });
-
-    this.activatedRoute.queryParamMap.subscribe((paramsMap) => {
-      this.page = 1;
-      if (!paramsMap.has('query')) {
-        this._getPopularSubscription$ = this.moviesService
-          .getPopular(this.page)
-          .subscribe((response) => {
-            this.movies = response.results;
-          });
-
-        return;
-      }
-
-      this._searchSubscription$ = this.moviesService
-        .getByQuery(paramsMap.get('query') as string, this.page)
-        .subscribe((response) => {
-          this.movies = response.results;
-        });
+    this.activatedRoute.data.pipe(take(1)).subscribe((data) => {
+      this.movies = data['movies'].results;
     });
+
+    this._querySubscription$ = this.activatedRoute.queryParams.subscribe(
+      (params) => {
+        this.page = 1;
+        this.getMovies(params['query']);
+      }
+    );
   }
 
   ngOnDestroy() {
-    if (this._getPopularSubscription$) {
-      this._getPopularSubscription$.unsubscribe();
+    this._querySubscription$.unsubscribe();
+  }
+
+  getMovies(query: string) {
+    if (query) {
+      this.moviesService
+        .getByQuery(query, this.page)
+        .pipe(take(1))
+        .subscribe((response) => {
+          this.movies = response.results;
+        });
+
+      return;
     }
 
-    if (this._searchSubscription$) {
-      this._searchSubscription$.unsubscribe();
-    }
-
-    if (this._querySubscription$) {
-      this._querySubscription$.unsubscribe();
-    }
+    this.moviesService
+      .getPopular(this.page)
+      .pipe(take(1))
+      .subscribe((response) => {
+        this.movies = response.results;
+      });
   }
 
   onScroll() {
     this.page++;
-    this._getPopularSubscription$ = this.moviesService
+    this.moviesService
       .getPopular(this.page)
+      .pipe(take(1))
       .subscribe((response) => {
-        this.movies = [...this.movies, ...response.results];
+        this.movies.push(...response.results);
       });
   }
 }
