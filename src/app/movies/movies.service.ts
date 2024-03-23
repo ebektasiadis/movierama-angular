@@ -4,6 +4,8 @@ import { environment } from '@/environments/environments';
 import { Paginated } from '@/app/shared/types';
 import { Movie } from './movie.model';
 import { Review } from './review.model';
+import { Video } from './video.model';
+import { MovieDetails } from './movie-details/movie-details.model';
 
 @Injectable({ providedIn: 'root' })
 export class MoviesService {
@@ -31,15 +33,24 @@ export class MoviesService {
   /**
    * TODO: catch error if movie id is not found
    */
+  getDetailsById(movieId: number) {
+    return this.http.get<MovieDetails>(`${this._baseUrl}/3/movie/${movieId}`);
+  }
+
+  /**
+   * TODO: catch error if movie id is not found
+   */
   getSimilarById(movieId: number) {
-    return this.http.get<Movie>(`${this._baseUrl}/3/movie/${movieId}/similar`);
+    return this.http.get<Paginated<Movie>>(
+      `${this._baseUrl}/3/movie/${movieId}/similar`
+    );
   }
 
   /**
    * TODO: catch error if movie id is not found
    */
   getVideosById(movieId: number) {
-    return this.http.get<Movie>(`${this._baseUrl}/3/movie/${movieId}/videos`);
+    return this.http.get<Video[]>(`${this._baseUrl}/3/movie/${movieId}/videos`);
   }
 
   /**
