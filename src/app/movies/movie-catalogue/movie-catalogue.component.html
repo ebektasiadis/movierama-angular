@@ -4,5 +4,8 @@
   infiniteScroll
   (scrolled)="onScroll()"
 >
-  <app-movie-card *ngFor="let movie of movies" [movie]="movie" />
+  <app-movie-card
+    *ngFor="let movie of movies; trackBy: movieTrackBy"
+    [movie]="movie"
+  />
 </div>

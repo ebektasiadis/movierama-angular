@@ -13,8 +13,10 @@ export class MovieVideoPlayerComponent {
   }
 
   ngOnChanges() {
-    this.videoUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(
-      this.videoUrl
-    ) as string;
+    if (this.videoUrl) {
+      this.videoUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(
+        this.videoUrl
+      ) as string;
+    }
   }
 }

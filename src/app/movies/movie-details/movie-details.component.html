@@ -8,6 +8,9 @@
     infiniteScroll
     (scrolled)="onSimilarMoviesScroll()"
   >
-    <app-movie-card *ngFor="let movie of similarMovies" [movie]="movie" />
+    <app-movie-card
+      *ngFor="let movie of similarMovies; trackBy: movieTrackBy"
+      [movie]="movie"
+    />
   </div>
 </div>

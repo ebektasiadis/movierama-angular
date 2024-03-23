@@ -1,3 +1,6 @@
 <div class="flex flex-col" infiniteScroll (scrolled)="onScroll()">
-  <app-movie-reviews-item *ngFor="let review of reviews" [review]="review" />
+  <app-movie-reviews-item
+    *ngFor="let review of reviews; trackBy: reviewTrackBy"
+    [review]="review"
+  />
 </div>

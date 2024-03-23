@@ -82,4 +82,8 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
         this.maxPages = response.total_pages;
       });
   }
+
+  movieTrackBy(_: number, movie: Movie) {
+    return movie.id;
+  }
 }

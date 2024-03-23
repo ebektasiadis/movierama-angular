@@ -52,4 +52,8 @@ export class MovieReviewsListComponent implements OnInit, OnDestroy {
         this.maxPages = response.total_pages;
       });
   }
+
+  reviewTrackBy(_: number, review: Review) {
+    return review.id;
+  }
 }

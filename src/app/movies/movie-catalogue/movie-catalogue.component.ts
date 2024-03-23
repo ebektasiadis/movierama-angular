@@ -67,4 +67,8 @@ export class MovieCatalogueComponent implements OnInit, OnDestroy {
         this.movies.push(...response.results);
       });
   }
+
+  movieTrackBy(_: number, movie: Movie) {
+    return movie.id;
+  }
 }
