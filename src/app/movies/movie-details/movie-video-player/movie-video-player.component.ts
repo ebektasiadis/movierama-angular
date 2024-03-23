@@ -8,11 +8,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class MovieVideoPlayerComponent {
   @Input() videoUrl: string;
 
-  getVideoUrl() {
-    return this.domSanitizer.bypassSecurityTrustResourceUrl(this.videoUrl);
-  }
-
   constructor(private domSanitizer: DomSanitizer) {
     this.videoUrl = '';
+  }
+
+  ngOnChanges() {
+    this.videoUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(
+      this.videoUrl
+    ) as string;
   }
 }

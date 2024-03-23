@@ -40,9 +40,14 @@ export class MoviesService {
   /**
    * TODO: catch error if movie id is not found
    */
-  getSimilarById(movieId: number) {
+  getSimilarById(movieId: number, page: number = 1) {
     return this.http.get<Paginated<Movie>>(
-      `${this._baseUrl}/3/movie/${movieId}/similar`
+      `${this._baseUrl}/3/movie/${movieId}/similar`,
+      {
+        params: {
+          page,
+        },
+      }
     );
   }
 
