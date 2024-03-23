@@ -1,0 +1,8 @@
+<iframe
+  *ngIf="videoUrl"
+  [src]="getVideoUrl()"
+  class="aspect-video w-full rounded-lg"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerpolicy="strict-origin-when-cross-origin"
+  allowfullscreen
+></iframe>

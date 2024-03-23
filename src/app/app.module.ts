@@ -14,6 +14,7 @@ import { MovieCardComponent } from './movies/movie-card/movie-card.component';
 import { MovieCatalogueComponent } from './movies/movie-catalogue/movie-catalogue.component';
 import { MovieHoverDetailsComponent } from './movies/movie-hover-details/movie-hover-details.component';
 import { MovieDetailsComponent } from './movies/movie-details/movie-details.component';
+import { MovieVideoPlayerComponent } from './movies/movie-details/movie-video-player/movie-video-player.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { MovieDetailsComponent } from './movies/movie-details/movie-details.comp
     MovieCardComponent,
     MovieHoverDetailsComponent,
     MovieDetailsComponent,
+    MovieVideoPlayerComponent,
     MagnifyingGlassSvgComponent,
   ],
   imports: [
