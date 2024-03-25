@@ -1,6 +1,16 @@
-# MovieramaAngular
+# Movierama (Angular Edition)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.3.
+## TODO
+
+- misc: Wrap components in modules + Lazy Loading
+- bugfix: Fix issue with tab not resetting to default when resizing on movie details from mobile/tablet to desktop
+- feat: Add search on dropdown functionality when you are on movie details view
+- feat: Add blank / loading slates where needed
+- feat: Add error handling on http requests
+- styles: Make videos render as 2 column grid when on tablet instead of flex
+- docs: Update README.md with project related information
+- tests: Write tests for already existing components + services
+- feat (experimental): Convert Inputs / Outputs and component state with signals
 
 ## Development server
 
