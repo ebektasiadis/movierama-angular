@@ -1,7 +1,5 @@
 const fs = require("fs");
 
-console.log(process.env);
-
 const environments = Object.fromEntries(
   Object.entries(process.env)
     .filter(([key]) => key.startsWith("ANGULAR_APP_"))
