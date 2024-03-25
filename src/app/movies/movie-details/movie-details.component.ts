@@ -6,16 +6,17 @@ import { MovieDetails } from './movie-details.model';
 import { Subscription, take } from 'rxjs';
 import { Movie } from '../movie.model';
 import { MoviesService } from '../movies.service';
-
 @Component({
   selector: 'app-movie-details',
   templateUrl: './movie-details.component.html',
 })
 export class MovieDetailsComponent implements OnInit, OnDestroy {
   reviews: Review[];
-  videoUrls: string[];
+  videos: Video['results'];
   similarMovies: Movie[];
   details?: MovieDetails;
+  selectedTab: string;
+  selectedVideo?: Video['results'][number];
 
   private movieId: number;
   private page: number;
@@ -30,7 +31,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
   ) {
     this.reviews = [];
     this.similarMovies = [];
-    this.videoUrls = [];
+    this.videos = [];
 
     this._data$ = Subscription.EMPTY;
     this._params$ = Subscription.EMPTY;
@@ -38,6 +39,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     this.movieId = 0;
     this.page = 1;
     this.maxPages = Infinity;
+    this.selectedTab = 'similar';
   }
 
   ngOnInit() {
@@ -46,7 +48,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
       this.similarMovies = data['similar'].results;
       this.details = data['details'];
 
-      this.videoUrls = (data['videos'] as Video)?.results
+      this.videos = (data['videos'] as Video)?.results
         .filter((video) => video.site === 'YouTube')
         .sort((a) => {
           if (a.type === 'Trailer' || a.official) {
@@ -54,8 +56,9 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
           }
 
           return 1;
-        })
-        .map((video) => `https://www.youtube.com/embed/${video.key}`);
+        });
+
+      this.selectedVideo = this.videos[0];
     });
 
     this._params$ = this.activatedRoute.params.subscribe((params) => {
@@ -69,7 +72,6 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
   }
 
   onSimilarMoviesScroll() {
-    console.log('scrolling similar');
     this.page++;
     if (this.page > this.maxPages) {
       return;
@@ -81,6 +83,14 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
         this.similarMovies.push(...response.results);
         this.maxPages = response.total_pages;
       });
+  }
+
+  onTabClick(tab: string) {
+    this.selectedTab = tab;
+  }
+
+  onVideoClick(video: Video['results'][number]) {
+    this.selectedVideo = video;
   }
 
   movieTrackBy(_: number, movie: Movie) {

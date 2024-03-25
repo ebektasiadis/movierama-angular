@@ -1,16 +1,49 @@
-<div class="grid grid-cols-3 gap-2">
+<div class="flex flex-col xl:grid xl:grid-cols-3 gap-2">
   <div class="col-span-2">
-    <app-movie-video-player [videoUrl]="videoUrls[0]" />
-    <app-movie-reviews-list [reviews]="reviews" />
-  </div>
-  <div
-    class="flex flex-col gap-2"
-    infiniteScroll
-    (scrolled)="onSimilarMoviesScroll()"
-  >
-    <app-movie-card
-      *ngFor="let movie of similarMovies; trackBy: movieTrackBy"
-      [movie]="movie"
+    <app-movie-video-player
+      *ngIf="selectedVideo"
+      videoUrl="https://www.youtube.com/embed/{{ selectedVideo.key }}"
     />
+    <app-movie-reviews-list [reviews]="reviews" class="hidden xl:block" />
+  </div>
+  <div>
+    <div role="tablist" class="tabs tabs-boxed mb-1">
+      <a
+        *ngFor="let tab of ['similar', 'video', 'reviews']"
+        role="tab"
+        class="tab"
+        [ngClass]="{
+          'tab-active': selectedTab === tab,
+          'xl:hidden': tab === 'reviews'
+        }"
+        (click)="onTabClick(tab)"
+        >{{ tab | titlecase }}
+      </a>
+    </div>
+    <div role="tabpanel">
+      <div
+        *ngIf="selectedTab === 'similar'"
+        class="flex flex-col gap-2"
+        infiniteScroll
+        (scrolled)="onSimilarMoviesScroll()"
+      >
+        <app-movie-card
+          *ngFor="let movie of similarMovies; trackBy: movieTrackBy"
+          [movie]="movie"
+        />
+      </div>
+      <app-movie-reviews-list
+        *ngIf="selectedTab === 'reviews'"
+        [reviews]="reviews"
+      />
+    </div>
+    <div class="flex flex-col gap-2" *ngIf="selectedTab === 'video'">
+      <app-movie-video-card
+        *ngFor="let video of videos"
+        [video]="video"
+        [isSelected]="selectedVideo === video"
+        (select)="onVideoClick($event)"
+      />
+    </div>
   </div>
 </div>
