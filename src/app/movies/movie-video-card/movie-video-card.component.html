@@ -1,0 +1,21 @@
+<div *ngIf="video" class="card bg-base-100 shadow-xl image-full w-full">
+  <figure>
+    <img
+      class="w-full"
+      src="https://i.ytimg.com/vi/{{ video.key }}/mqdefault.jpg"
+    />
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title">{{ video.name }}</h2>
+    <p>{{ video.type }}</p>
+    <div class="card-actions justify-end">
+      <button
+        [disabled]="isSelected"
+        (click)="onClick()"
+        class="btn btn-primary"
+      >
+        Watch video
+      </button>
+    </div>
+  </div>
+</div>
