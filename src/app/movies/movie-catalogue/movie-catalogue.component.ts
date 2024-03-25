@@ -11,13 +11,17 @@ import { ActivatedRoute } from '@angular/router';
 export class MovieCatalogueComponent implements OnInit, OnDestroy {
   private _querySubscription$: Subscription;
 
-  movies: Movie[] = [];
-  page = 1;
+  movies: Movie[];
+  page: number;
+  maxPage: number;
 
   constructor(
     private moviesService: MoviesService,
     private activatedRoute: ActivatedRoute
   ) {
+    this.movies = [];
+    this.page = 1;
+    this.maxPage = Infinity;
     this._querySubscription$ = Subscription.EMPTY;
   }
 
@@ -29,6 +33,7 @@ export class MovieCatalogueComponent implements OnInit, OnDestroy {
     this._querySubscription$ = this.activatedRoute.queryParams.subscribe(
       (params) => {
         this.page = 1;
+        this.maxPage = Infinity;
         this.getMovies(params['query']);
       }
     );
@@ -60,11 +65,15 @@ export class MovieCatalogueComponent implements OnInit, OnDestroy {
 
   onScroll() {
     this.page++;
+    if (this.page > this.maxPage) {
+      return;
+    }
     this.moviesService
       .getPopular(this.page)
       .pipe(take(1))
       .subscribe((response) => {
         this.movies.push(...response.results);
+        this.maxPage = response.total_pages;
       });
   }
 
