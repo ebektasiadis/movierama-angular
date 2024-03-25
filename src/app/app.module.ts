@@ -18,7 +18,7 @@ import { MovieDetailsComponent } from './movies/movie-details/movie-details.comp
 import { MovieVideoPlayerComponent } from './movies/movie-details/movie-video-player/movie-video-player.component';
 import { MovieReviewsListComponent } from './movies/movie-details/movie-reviews-list/movie-reviews-list.component';
 import { MovieReviewsItemComponent } from './movies/movie-details/movie-reviews-item/movie-reviews-item.component';
-import { MovieVideoCardComponent } from './movies/movie-video-card/movie-video-card.component';
+import { MovieVideoCardComponent } from './movies/movie-details/movie-video-card/movie-video-card.component';
 
 @NgModule({
   declarations: [

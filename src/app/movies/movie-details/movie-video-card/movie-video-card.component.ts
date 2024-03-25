@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Video } from '../video.model';
+import { Video } from '../../video.model';
 
 @Component({
   selector: 'app-movie-video-card',
@@ -20,8 +20,6 @@ export class MovieVideoCardComponent {
     if (!this.video) {
       return;
     }
-
-    console.log('here');
 
     this.select.next(this.video);
   }
